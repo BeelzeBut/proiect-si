@@ -12,12 +12,12 @@ function Pi() {
     let ws: WebSocket;
 
     useEffect(() => {
-        ws = new WebSocket("wss://websocket-url");
+        ws = new WebSocket("wss://localhost:8000");
 
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (data && Array.isArray(data)) {
-                setPins(data);
+                setPins([...pins, ...data as Pin[]]);
             }
         };
 
@@ -31,7 +31,7 @@ function Pi() {
         const updatedPins = pins.map(pin => pin.id === id ? { ...pin, state: !pin.state } : pin);
 
         try {
-            const response = await axios.post("https://api-url/getstate", updatedPins);
+            const response = await axios.post("https://localhost:8000/getstate", updatedPins);
             if (response.status === 200) {
                 setPins(updatedPins);
             }
