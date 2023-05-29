@@ -26,7 +26,7 @@ function Pi() {
             console.log([...pins, data])
 
             if (data) {
-                setPins((oldPins) => [...oldPins, data]);
+                setPins((oldPins) => [...oldPins.map((p) => p.id === data.id ? data : p)]);
             }
         };
     }
