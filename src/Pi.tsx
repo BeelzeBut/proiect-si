@@ -11,11 +11,16 @@ function Pi() {
     const [loading, setLoading] = useState(false);
     let ws: WebSocket;
 
-    // useEffect(() => {
-    //     const response = axios.post("http://192.168.22.143:80/getstate", updatedPins);
-    //     if (response.status === 200) {
-    //         setPins(updatedPins);
-    //     }    }, [])
+    const getInitialPins = async () => {
+        const response = await axios.get("http://192.168.22.143:80/getstate");
+        if (response.status === 200) {
+            setPins(response.data);
+        }
+    }
+
+    useEffect(() => {
+            getInitialPins();
+        }, [])
 
     useEffect(() => {
         ws = new WebSocket("ws://192.168.22.143:80/ws");
