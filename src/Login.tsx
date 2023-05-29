@@ -15,7 +15,8 @@ function Login({ setIsLoggedIn } : { setIsLoggedIn: (isLoggedIn: boolean) => voi
                 password
             });
 
-            setIsLoggedIn(true);
+            if(response.status === 200)
+                setIsLoggedIn(true);
         } catch (error) {
             console.error('Error logging in:', error);
         }

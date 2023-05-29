@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Pi from "./Pi"; // Using axios for http requests
+import Pi from "./Pi";
 import Login from "./Login";
 
 type Pin = {
