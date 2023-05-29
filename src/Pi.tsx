@@ -12,7 +12,7 @@ function Pi() {
     let ws: WebSocket;
 
     useEffect(() => {
-        ws = new WebSocket("wss://localhost:80");
+        ws = new WebSocket("/ws");
 
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
@@ -31,7 +31,7 @@ function Pi() {
         const updatedPins = pins.map(pin => pin.id === id ? { ...pin, state: !pin.state } : pin);
 
         try {
-            const response = await axios.post("https://localhost:80/getstate", updatedPins);
+            const response = await axios.post("/getstate", updatedPins);
             if (response.status === 200) {
                 setPins(updatedPins);
             }
