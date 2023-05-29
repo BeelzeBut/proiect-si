@@ -10,7 +10,7 @@ type Pin = {
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  return !isLoggedIn ? <Pi /> : <Login setIsLoggedIn={setIsLoggedIn} />;
+  return isLoggedIn ? <Pi /> : <Login setIsLoggedIn={setIsLoggedIn} />;
 }
 
 export default App;
