@@ -17,13 +17,7 @@ function Pi() {
         if (response.status === 200) {
             setPins(response.data);
         }
-    }
 
-    useEffect(() => {
-            getInitialPins();
-        }, [])
-
-    useEffect(() => {
         ws.current = new WebSocket("ws://192.168.22.143:80/ws");
 
         ws.current.onmessage = (event) => {
@@ -35,7 +29,13 @@ function Pi() {
                 setPins((oldPins) => [...oldPins, data]);
             }
         };
+    }
 
+    useEffect(() => {
+            getInitialPins();
+        }, [])
+
+    useEffect(() => {
         return () => {
             ws.current?.close();
         };
