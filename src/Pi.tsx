@@ -28,6 +28,7 @@ function Pi() {
 
         ws.current.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            console.log(data)
             if (data) {
                 setPins([...pins, data]);
             }
