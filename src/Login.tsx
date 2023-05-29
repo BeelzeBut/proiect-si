@@ -10,7 +10,7 @@ function Login({ setIsLoggedIn } : { setIsLoggedIn: (isLoggedIn: boolean) => voi
         event.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:8000/login', {
+            const response = await axios.post('https://localhost:80/login', {
                 username,
                 password
             });
