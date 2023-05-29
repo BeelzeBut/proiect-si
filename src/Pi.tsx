@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import axios from 'axios';
 import './App.css'
 
@@ -10,7 +10,7 @@ type Pin = {
 function Pi() {
     const [pins, setPins] = useState<Pin[]>([]);
     const [loading, setLoading] = useState(false);
-    let ws: WebSocket;
+    let ws = useRef<WebSocket | null>(null);
 
     const getInitialPins = async () => {
         const response = await axios.get("http://192.168.22.143:80/getstate");
@@ -24,9 +24,9 @@ function Pi() {
         }, [])
 
     useEffect(() => {
-        ws = new WebSocket("ws://192.168.22.143:80/ws");
+        ws.current = new WebSocket("ws://192.168.22.143:80/ws");
 
-        ws.onmessage = (event) => {
+        ws.current.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (data) {
                 setPins([...pins, ...data as Pin[]]);
@@ -34,7 +34,7 @@ function Pi() {
         };
 
         return () => {
-            ws.close();
+            ws.current?.close();
         };
     }, []);
 
@@ -47,8 +47,8 @@ function Pi() {
             // if (response.status === 200) {
             //     setPins(updatedPins);
             // }
-            ws = new WebSocket("ws://192.168.22.143:80/ws");
-            ws.send(JSON.stringify({
+
+            ws.current?.send(JSON.stringify({
                 id: id,
                 state: !pins.find(p => p.id === id)?.state ?? true
             }))
