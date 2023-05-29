@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'; // Using axios for http requests
+import axios from 'axios';
+import './App.css'
 
 type Pin = {
     id: number;
