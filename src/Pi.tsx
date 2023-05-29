@@ -11,20 +11,20 @@ function Pi() {
     const [loading, setLoading] = useState(false);
     let ws: WebSocket;
 
-    useEffect(() => {
-        ws = new WebSocket("ws://192.168.22.143:80/ws");
-
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data && Array.isArray(data)) {
-                setPins([...pins, ...data as Pin[]]);
-            }
-        };
-
-        return () => {
-            ws.close();
-        };
-    }, []);
+    // useEffect(() => {
+    //     ws = new WebSocket("ws://192.168.22.143:80/ws");
+    //
+    //     ws.onmessage = (event) => {
+    //         const data = JSON.parse(event.data);
+    //         if (data && Array.isArray(data)) {
+    //             setPins([...pins, ...data as Pin[]]);
+    //         }
+    //     };
+    //
+    //     return () => {
+    //         ws.close();
+    //     };
+    // }, []);
 
     const handlePinClick = async (id: number) => {
         setLoading(true);
