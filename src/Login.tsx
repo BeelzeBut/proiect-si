@@ -11,7 +11,7 @@ function Login({ setIsLoggedIn } : { setIsLoggedIn: (isLoggedIn: boolean) => voi
 
         try {
             const response = await axios.post('http://192.168.22.143:80/login', {
-                username,
+                email: username,
                 password
             });
 
