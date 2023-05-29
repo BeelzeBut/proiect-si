@@ -47,6 +47,7 @@ function Pi() {
             // if (response.status === 200) {
             //     setPins(updatedPins);
             // }
+            ws = new WebSocket("ws://192.168.22.143:80/ws");
             ws.send(JSON.stringify({
                 id: id,
                 state: !pins.find(p => p.id === id)?.state ?? true
