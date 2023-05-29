@@ -31,6 +31,7 @@ function Pi() {
             console.log(data)
             if (data) {
                 setPins([...pins, data]);
+                console.log([...pins, data])
             }
         };
 
