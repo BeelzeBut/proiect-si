@@ -11,6 +11,12 @@ function Pi() {
     const [loading, setLoading] = useState(false);
     let ws: WebSocket;
 
+    useEffect(() => {
+        const response = axios.post("http://192.168.22.143:80/getstate", updatedPins);
+        if (response.status === 200) {
+            setPins(updatedPins);
+        }    }, [])
+
     // useEffect(() => {
     //     ws = new WebSocket("ws://192.168.22.143:80/ws");
     //
@@ -28,13 +34,17 @@ function Pi() {
 
     const handlePinClick = async (id: number) => {
         setLoading(true);
-        const updatedPins = pins.map(pin => pin.id === id ? { ...pin, state: !pin.state } : pin);
+        // const updatedPins = pins.map(pin => pin.id === id ? { ...pin, state: !pin.state } : pin);
 
         try {
-            const response = await axios.post("http://192.168.22.143:80/getstate", updatedPins);
-            if (response.status === 200) {
-                setPins(updatedPins);
-            }
+            // const response = await axios.post("http://192.168.22.143:80/getstate", updatedPins);
+            // if (response.status === 200) {
+            //     setPins(updatedPins);
+            // }
+            ws.send(JSON.stringify({
+                id: id,
+                state: !pins.find(p => p.id === id)?.state ?? true
+            }))
         } catch (error) {
             console.error("Error updating pin states: ", error);
         } finally {
